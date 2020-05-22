@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% if session.logged_in %}
+        <div class="library_table" align="center">
+            <h3 align="center">Personal Library</h3>
+            <table border="5" style="width=100%">
+                <thead>
+                    <tr>
+                        <th align="center">Title:</th>
+                        <th align="center">Author:</th>
+                        <th align="center">Pages:</th>
+                        <th align="center">Rating:</th>
+                        <th align="center">Delete:</th>
+                    </tr>
+                </thead>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.author }}</td>
+                        <td>{{ book.pages }}</td>
+                        <td>{{ book.rating }}</td>
+                        <td><button onclick="window.location.href = '{{ url_for('delete', id=book.id) }}'">Delete Book</button></td>
+                    </tr>
+                {% else %}
+                <tr>No Books</tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <br>
+        <br>
+        <div class="buttons">
+            <button onclick="window.location.href = '{{ url_for('addBook') }}';">Add New Book to Library</button>
+        </div>
+    {% endif %}
+{% endblock %}
